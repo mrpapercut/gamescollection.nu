@@ -1,2 +1,6 @@
+#files
+php/definitions.inc.php
+
+#folders
 node_modules
 public
