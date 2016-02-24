@@ -18,7 +18,8 @@ const App = createClass({
 		return div({
 			className: 'header'
 		},
-			giantbombSearch()
+			giantbombSearch(),
+			div({id: 'loading'})
 		);
 	}
 });

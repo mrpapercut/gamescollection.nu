@@ -3,3 +3,58 @@
     font-weight: bold;
     text-shadow: 3px 3px #000;
 }
+
+@mixin animate($name, $duration: 1s, $iteration: infinite, $direction: normal, $timing: linear) {
+	-webkit-animation-duration: $duration;
+	   -moz-animation-duration: $duration;
+	     -o-animation-duration: $duration;
+		    animation-duration: $duration;
+
+	-webkit-animation-iteration-count: $iteration;
+	   -moz-animation-iteration-count: $iteration;
+	     -o-animation-iteration-count: $iteration;
+	        animation-iteration-count: $iteration;
+
+	-webkit-animation-name: $name;
+	   -moz-animation-name: $name;
+	     -o-animation-name: $name;
+	        animation-name: $name;
+
+	-webkit-animation-direction: $direction;
+	   -moz-animation-direction: $direction;
+	     -o-animation-direction: $direction;
+		    animation-direction: $direction;
+
+	-webkit-animation-timing-function: $timing;
+       -moz-animation-timing-function: $timing;
+         -o-animation-timing-function: $timing;
+            animation-timing-function: $timing;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@include keyframes(rotate) {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@mixin rotate {
+	@include animate(rotate);
+}
