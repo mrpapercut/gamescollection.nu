@@ -8,17 +8,19 @@ import ReactDOM from 'react-dom';
 import debounce from 'debounce';
 
 import GiantbombSearch from './Giantbomb';
+import Gameslist from './Gameslist';
 
 const {div} = DOM;
 
-const [giantbombSearch] = [GiantbombSearch].map(createFactory);
+const [giantbombSearch, gameslist] = [GiantbombSearch, Gameslist].map(createFactory);
 
 const App = createClass({
 	render() {
 		return div({
 			className: 'header'
 		},
-			giantbombSearch(),
+			/*giantbombSearch(),*/
+			gameslist(),
 			div({id: 'loading'})
 		);
 	}
