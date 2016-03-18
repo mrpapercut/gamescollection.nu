@@ -19,9 +19,9 @@ const App = createClass({
 		return div({
 			className: 'header'
 		},
+			gameslist()
 			/*giantbombSearch(),*/
-			gameslist(),
-			div({id: 'loading'})
+			/*div({id: 'loading'})*/
 		);
 	}
 });

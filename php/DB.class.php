@@ -28,7 +28,7 @@ class DB {
 			} elseif($result->num_rows == 0){
 				return false;
 			} else {
-				while($row = $result->fetch_assoc()){
+				while($row = $result->fetch_assoc()) {
 					$rows[] = $row;
 				}
 

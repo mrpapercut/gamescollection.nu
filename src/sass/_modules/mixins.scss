@@ -1,7 +1,7 @@
 @mixin comiceffect {
-    -webkit-text-stroke: 1px #000;
+    -webkit-text-stroke: 1px #fff;
     font-weight: bold;
-    text-shadow: 3px 3px #000;
+    text-shadow: 3px 3px #fff;
 }
 
 @mixin animate($name, $duration: 1s, $iteration: infinite, $direction: normal, $timing: linear) {

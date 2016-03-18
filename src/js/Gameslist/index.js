@@ -1,21 +1,42 @@
 'use strict';
 
-import {createClass, DOM} from 'react';
+import {createClass, createFactory, DOM} from 'react';
+import assign from 'object-assign';
 
-import {fetchAll} from './server/fetch';
+import {fetchAll, fetchLatest} from './server/fetch';
 
-const {div} = DOM;
+import GameItem from './components/GameItem';
+
+const [gameItem] = [GameItem].map(createFactory);
+
+const {div, h2} = DOM;
 
 const Gameslist = createClass({
 
+	getInitialState() {
+		return {
+			latest: []
+		}
+	},
+
 	componentWillMount() {
-		fetchAll(res => console.log(res));
+		fetchLatest(res => this.setState({
+			latest: res
+		}));
 	},
 
 	render() {
 		return div({
-
-		});
+			className: 'latest-games'
+		},
+			h2({
+				className: 'page-title'
+			}, 'Latest games'),
+			this.state.latest.map(g => gameItem(assign(g, {
+				key: g.id,
+				image: JSON.parse(g.image)
+			})))
+		);
 	}
 });
 
