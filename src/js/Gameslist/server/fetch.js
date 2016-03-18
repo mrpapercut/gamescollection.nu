@@ -1,6 +1,6 @@
 'use strict';
 
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import assign from 'object-assign';
 import qs from 'query-string';
 
