@@ -1,5 +1,6 @@
 #files
 php/definitions.inc.php
+.htpasswd
 
 #folders
 node_modules
