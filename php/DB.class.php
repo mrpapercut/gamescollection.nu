@@ -23,7 +23,7 @@ class DB {
 		if (is_null($query)) {
 			die('No query given!');
 		} else {
-			if(!$result = $this->conn->query($query)){
+			if (!$result = $this->conn->query($query)) {
 				return 'Error processing query <strong>"'.$query.'"</strong>';
 			} elseif($result->num_rows == 0){
 				return false;
@@ -40,10 +40,10 @@ class DB {
 	public function insert($table, $data = array()) {
 		$query = 'INSERT INTO '.$table.' SET ';
 		foreach($data as $column => $value){
-			if(!is_null($value)) $query .= $column.' = "'.mysqli_real_escape_string($this->conn, $value).'", ';
+			if (!is_null($value)) $query .= $column.' = "'.mysqli_real_escape_string($this->conn, $value).'", ';
 		}
 
-		if(!$result = $this->conn->query(substr($query, 0, -2))){
+		if (!$result = $this->query(substr($query, 0, -2))) {
 			return 'Error inserting row with query <strong>"'.$query.'"</strong><br>';
 		} else {
 			return true;
@@ -53,13 +53,13 @@ class DB {
 	public function update($table, $id, $data = array()) {
 		$query = 'UPDATE '.$table.' SET ';
 		foreach($data as $column => $value){
-			if(!is_null($value)) $query .= $column.' = "'.mysqli_real_escape_string($this->conn, $value).'", ';
+			if (!is_null($value)) $query .= $column.' = "'.mysqli_real_escape_string($this->conn, $value).'", ';
 		}
 
 		$query = substr($query, 0, -2);
 		$query .= ' WHERE id = '.$id;
 
-		if(!$result = $this->conn->query($query)){
+		if (!$result = $this->query($query)) {
 			return 'Error updating row with query <strong>"'.$query.'"</strong><br>';
 		} else {
 			return true;
@@ -69,8 +69,18 @@ class DB {
 	public function delete($table, $id) {
 		$query = 'DELETE FROM '.$table.' WHERE id = '.$id;
 
-		if(!$result = $this->conn->query($query)){
+		if (!$result = $this->query($query)) {
 			return 'Error deleting row with query <strong>"'.$query.'"</strong><br>';
+		} else {
+			return true;
+		}
+	}
+
+	public function id_exists($table, $id) {
+		$query = 'SELECT id FROM '.$table.' WHERE id = '.$id;
+
+		if (!$result = $this->query($query)) {
+			return false;
 		} else {
 			return true;
 		}
