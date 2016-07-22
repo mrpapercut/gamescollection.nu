@@ -43,7 +43,7 @@ class DB {
 			if (!is_null($value)) $query .= $column.' = "'.mysqli_real_escape_string($this->conn, $value).'", ';
 		}
 
-		if (!$result = $this->query(substr($query, 0, -2))) {
+		if (!$result = $this->conn->query(substr($query, 0, -2))) {
 			return 'Error inserting row with query <strong>"'.$query.'"</strong><br>';
 		} else {
 			return true;
@@ -59,7 +59,7 @@ class DB {
 		$query = substr($query, 0, -2);
 		$query .= ' WHERE id = '.$id;
 
-		if (!$result = $this->query($query)) {
+		if (!$result = $this->conn->query($query)) {
 			return 'Error updating row with query <strong>"'.$query.'"</strong><br>';
 		} else {
 			return true;
@@ -69,7 +69,7 @@ class DB {
 	public function delete($table, $id) {
 		$query = 'DELETE FROM '.$table.' WHERE id = '.$id;
 
-		if (!$result = $this->query($query)) {
+		if (!$result = $this->conn->query($query)) {
 			return 'Error deleting row with query <strong>"'.$query.'"</strong><br>';
 		} else {
 			return true;

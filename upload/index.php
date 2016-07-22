@@ -33,17 +33,21 @@ class Upload {
 						'id' => $game->id,
 						'name' => $game->name,
 						'platformId' => $game->platform_id,
-						'image' => array(
+						'image' => json_encode(array(
 							'large' => isset($game->image_url_large) ? $game->image_url_large : null,
 							'medium' => isset($game->image_url_medium) ? $game->image_url_medium : null,
 							'small' => isset($game->image_url_small) ? $game->image_url_small : null,
 							'thumb' => isset($game->image_url_thumb) ? $game->image_url_thumb : null
-						),
+						)),
 						'description' => isset($game->description_short) ? $game->description_short : null,
 						'release_date' => isset($game->release_date) ? $this->parseDate($game->release_date) : null
 					));
 				}
 			}
+		}
+
+		foreach ($games as $g) {
+			$db->insert('games', $g);
 		}
 
 		$this->gamelist = $games;
@@ -85,6 +89,8 @@ if (isset($_POST['uploadfile']) && count($_FILES) > 0) {
 		}
 		$zip->close();
 	}
+} elseif (isset($_POST['import'])) {
+	//$upload->importList();
 }
 
 ?>
@@ -113,14 +119,18 @@ img {
 	<thead><th>Name</th><th>Platform</th><th>Image</th><th>Description</th><th>Release date</th></thead>
 	<tbody>
 	<?php foreach($upload->gamelist as $g) {
+		$images = json_decode($g['images']);
 		echo '<tr><td>'.$g['name'].'</td>';
 		echo '<td>'.$upload->platformById($g['platformId']).'</td>';
-		echo isset($g['image']['thumb']) ? '<td><img src='.$g['image']['thumb'].'></td>' : null;
+		echo isset($images) ? '<td><img src='.$images['thumb'].'></td>' : null;
 		echo '<td>'.$g['description'].'</td>';
 		echo '<td>'.$g['release_date'].'</td></tr>'."\n";
 	} ?>
 	</tbody>
 	</table>
+	<form method="post" action="" enctype="multipart/form-data">
+		<button>Import</button>
+	</form>
 <?php } ?>
 <?php if ($upload->platforms && false) { ?>
 	<table>

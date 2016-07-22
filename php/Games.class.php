@@ -22,6 +22,6 @@ class Games {
 	}
 
 	private function getLatestGames() {
-		return $this->db->query('SELECT g.id, g.name, g.image, g.release_date, p.abbr AS platform FROM games AS g INNER JOIN platforms AS p WHERE p.id = g.platformId ORDER BY g.id DESC LIMIT 10');
+		return $this->db->query('SELECT g.id, g.name, g.image, g.release_date, p.abbr AS platform FROM games AS g INNER JOIN platforms AS p WHERE p.id = g.platformId ORDER BY g.id DESC LIMIT 50');
 	}
 }
